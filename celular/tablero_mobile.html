@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tablero � interactivo m�vil</title>
+<style>
+  :root {
+    --badge-size: 32px;
+    --tooltip-bg: rgba(0,0,0,0.85);
+    --tooltip-color: #fff;
+    --tooltip-padding: 8px 10px;
+    --tooltip-radius: 8px;
+  }
+  html,body{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;background:#fafafa;color:#111;}
+  .wrap{max-width:940px;margin:12px auto;padding:12px;}
+  h1{font-size:18px;margin:6px 0 12px;text-align:center;}
+  .board{position:relative;display:block;width:100%;height:auto;overflow:visible;}
+  .board img{display:block;width:100%;height:auto;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,0.06);}
+  .badge{
+    position:absolute;
+    width:var(--badge-size);
+    height:var(--badge-size);
+    min-width:var(--badge-size);
+    border-radius:50%;
+    background:rgb(250, 250, 250); /* amarillo */
+    color:#111;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    box-shadow:0 2px 6px rgba(0,0,0,0.25);
+    transform:translate(-50%,-50%);
+    z-index:8;
+    touch-action: manipulation;
+  }
+  .tooltip {
+    position:absolute;
+    max-width:260px;
+    background:var(--tooltip-bg);
+    color:var(--tooltip-color);
+    padding:var(--tooltip-padding);
+    border-radius:var(--tooltip-radius);
+    font-size:14px;
+    line-height:1.3;
+    box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    z-index:9;
+    opacity:0;
+    transform:translateY(6px);
+    transition:opacity .18s ease, transform .18s ease, visibility .18s;
+    visibility:hidden;
+  }
+  .badge.active + .tooltip,
+  .tooltip.show {
+    opacity:1;
+    transform:translateY(0);
+    visibility:visible;
+  }
+
+  /* peque�as flechas para tooltip */
+  .tooltip::after{
+    content:"";
+    position:absolute;
+    width:10px;height:10px;
+    transform:rotate(45deg);
+    background:var(--tooltip-bg);
+    left:12px;
+    top:-5px;
+    box-shadow:inherit;
+  }
+
+  /* responsive tweaks */
+  @media (max-width:420px){
+    :root{--badge-size:28px;}
+    .tooltip{max-width:220px;font-size:13px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Tablero � tocar sobre el n�mero para ver info</h1>
+
+  <div class="board" id="board">
+    <img src="tablero.png" id="boardImg" alt="Tablero el�ctrico">
+
+    <!-- Badges colocadas en porcentajes (left, top). Ajustadas autom�ticamente por JS si hace falta -->
+    <!-- Cambi�/elimin� las que no correspondan; los % est�n calculados para tu foto -->
+    <div class="badge" data-id="1" style="left:15.0%; top:32.0%;">1</div>
+    <div class="tooltip" data-id="1"> Disyuntor Principal, corte total de la casa.</div>
+
+    <div class="badge" data-id="2" style="left:29.0%; top:32.0%;">2</div>
+    <div class="tooltip" data-id="2">Tablero Seccional Planta Alta.</div>
+
+    <div class="badge" data-id="3" style="left:42.0%; top:32.0%;">3</div>
+    <div class="tooltip" data-id="3">Calentador agua cocina, lavaplatos, cocina.</div>
+
+    <div class="badge" data-id="4" style="left:55.0%; top:32.0%;">4</div>
+    <div class="tooltip" data-id="4">Iluminacion Exterior.</div>
+
+    <div class="badge" data-id="5" style="left:69%; top:32.0%;">5</div>
+    <div class="tooltip" data-id="5">Aire acondicionado.</div>
+
+    <div class="badge" data-id="6" style="left:81%; top:32.0%;">6</div>
+    <div class="tooltip" data-id="6">Tomas Planta baja y quincha.</div>
+
+    <div class="badge" data-id="7" style="left:30%; top:56.0%;">7</div>
+    <div class="tooltip" data-id="7">Iluminacion planta baja.</div>
+
+    <div class="badge" data-id="8" style="left:42.0%; top:56.0%;">8</div>
+    <div class="tooltip" data-id="8">Timer Iluminacion exterior.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const badges = Array.from(document.querySelectorAll('.badge'));
+  const tooltips = Array.from(document.querySelectorAll('.tooltip'));
+  const img = document.getElementById('boardImg');
+
+  // Cerrar cualquier tooltip abierto
+  function closeAll(){
+    badges.forEach(b=>b.classList.remove('active'));
+    tooltips.forEach(t=>t.classList.remove('show'));
+  }
+
+  // Mostrar tooltip y reposicionarlo para que no se salga de pantalla
+  function showTooltip(id, badgeEl, tooltipEl){
+    closeAll();
+    badgeEl.classList.add('active');
+    tooltipEl.classList.add('show');
+
+    // Ajustar posici�n: colocarlo a la derecha por defecto, si queda fuera lo colocamos a la izquierda o arriba
+    const rectBadge = badgeEl.getBoundingClientRect();
+    const rectTip = tooltipEl.getBoundingClientRect();
+    const viewportW = window.innerWidth || document.documentElement.clientWidth;
+    const viewportH = window.innerHeight || document.documentElement.clientHeight;
+
+    // convertimos CSS left/top porcentuales a px dentro del contenedor
+    // calcular ideal left/top del tooltip basado en badge rect
+    let tipLeft = rectBadge.right + 10;
+    let tipTop = rectBadge.top - (rectTip.height/2) + (rectBadge.height/2);
+
+    // si se sale por la derecha, ubicar a la izquierda
+    if (tipLeft + rectTip.width > viewportW - 12) {
+      tipLeft = rectBadge.left - rectTip.width - 10;
+      tooltipEl.style.left = tipLeft + 'px';
+    } else {
+      tooltipEl.style.left = tipLeft + 'px';
+    }
+
+    // si tooltip queda debajo o encima del viewport, ajustar top
+    if (tipTop < 8) tipTop = 8;
+    if (tipTop + rectTip.height > viewportH - 8) tipTop = viewportH - rectTip.height - 8;
+    tooltipEl.style.top = tipTop + 'px';
+
+    // set fixed so it floats above everything and follows scrolling
+    tooltipEl.style.position = 'fixed';
+  }
+
+  // asignar handlers t�ctiles y de mouse
+  badges.forEach(b => {
+    const id = b.dataset.id;
+    const tooltip = document.querySelector('.tooltip[data-id="'+id+'"]');
+
+    // click/tap: toggle
+    b.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      if (b.classList.contains('active')) {
+        closeAll();
+      } else {
+        showTooltip(id, b, tooltip);
+      }
+    });
+
+    // hover (desktop)
+    b.addEventListener('mouseenter', () => {
+      showTooltip(id, b, tooltip);
+    });
+    b.addEventListener('mouseleave', () => {
+      // no cerrar inmediatamente para que el usuario pueda mover el cursor al tooltip
+      setTimeout(()=>{ if(!b.matches(':hover')) closeAll(); }, 200);
+    });
+  });
+
+  // cerrar al tocar fuera
+  document.addEventListener('click', (e)=> {
+    if (!e.target.closest('.badge') && !e.target.closest('.tooltip')) closeAll();
+  });
+
+  // recolocar tooltips al rotar/resize
+  window.addEventListener('resize', closeAll);
+  window.addEventListener('orientationchange', closeAll);
+
+})();
+</script>
+</body>
+</html>
