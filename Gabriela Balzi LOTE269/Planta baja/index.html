@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tablero Eléctrico Interactivo</title>
+<style>
+  body {font-family: Arial, sans-serif; text-align: center; background: #f4f4f4; margin:0; padding:20px;}
+  h2 {margin-bottom:20px;}
+  .container {position: relative; display: inline-block;}
+  .container img {max-width: 100%; height: auto; display:block;}
+  .tooltip {position:absolute; background:rgba(0,0,0,0.8); color:#fff; padding:6px 10px;
+            border-radius:6px; font-size:14px; visibility:hidden; opacity:0;
+            transition:opacity 0.3s, transform 0.2s; white-space:nowrap; z-index:10;}
+  .label {position:absolute; cursor:pointer; width:30px; height:30px;}
+  .label:hover .tooltip, .label:active .tooltip {visibility:visible; opacity:1; transform:translateY(-5px);}
+</style>
+</head>
+<body>
+<h2>Tablero Eléctrico Interactivo 2</h2>
+<div class="container">
+  <img src="tablero.png" alt="Tablero Eléctrico">
+  <div class="label" style="top:30%; left:14%;">
+    <div class="tooltip">1: Disyuntor Principal, corte total de la casa.</div>
+  </div>
+
+  <div class="label" style="top:30.00%; left: 25%;">
+    <div class="tooltip">2: Tablero Secciónale Planta Alta.</div>
+  </div>
+
+  <div class="label" style="top:30%; left:40%;">
+    <div class="tooltip">3: Calentador agua cocina, lavaplatos, cocina.</div>
+  </div>
+
+  <div class="label" style="top:30.00%; left:50%;">
+    <div class="tooltip">4: Iluminación Exterior.</div>
+  </div>
+
+  <div class="label" style="top:30%; left:65%;">
+    <div class="tooltip">5: Aire acondicionado.</div>
+  </div>
+
+  <div class="label" style="top:30%; left:80%;">
+    <div class="tooltip">6: Tomas Planta baja y quincha.</div>
+  </div>
+
+  <div class="label" style="top:55%; left:27%;">
+    <div class="tooltip">7: Iluminación planta baja.</div>
+  </div>
+
+  <div class="label" style="top:55%; left:40.00%;">
+    <div class="tooltip">8: Timer Iluminación exterior.</div>
+  </div>
+
+</div>
+</body>
+</html>
