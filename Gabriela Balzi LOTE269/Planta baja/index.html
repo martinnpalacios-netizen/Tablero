@@ -9,46 +9,214 @@
   .container {position: relative; display: inline-block;}
   .container img {max-width: 100%; height: auto; display:block;}
   .tooltip {position:absolute; background:rgba(0,0,0,0.8); color:#fff; padding:6px 10px;
-            border-radius:6px; font-size:14px; visibility:hidden; opacity:0;
-            transition:opacity 0.3s, transform 0.2s; white-space:nowrap; z-index:10;}
+            border-radius:6px; font: size 20px; visibility:hidden; opacity:0;
+            transition:opacity 0.3s, transform:translateY(-5px); white-space:nowrap; z-index:10;}
   .label {position:absolute; cursor:pointer; width:30px; height:30px;}
   .label:hover .tooltip, .label:active .tooltip {visibility:visible; opacity:1; transform:translateY(-5px);}
+
+  /* Botón fijo */
+  .btn-fixed {
+    position: fixed;
+    top: 80px;      /* debajo del título */
+    left: 20px;     /* pegado a la izquierda */
+    padding:10px 20px;
+    font-size:16px;
+    background:#007BFF;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    z-index: 1000;  /* siempre encima de todo */
+  }
+  .btn-fixed:hover {
+    background:#0056b3;
+  }
 </style>
 </head>
 <body>
 <h2>Tablero Eléctrico Interactivo 2</h2>
+
+<!-- Botón fijo -->
+<a href="https://drive.google.com/file/d/ID_DEL_ARCHIVO/view?usp=sharing" target="_blank">
+  <button class="btn-fixed">Ver PLANOS</button>
+</a>
+
 <div class="container">
   <img src="tablero.png" alt="Tablero Eléctrico">
-  <div class="label" style="top:30%; left:14%;">
-    <div class="tooltip">1: Disyuntor Principal, corte total de la casa.</div>
+  <div class="label" style="top:18%; left:14%;">
+    <div class="tooltip">1: Termica Principal, corte total de la casa.</div>
   </div>
 
-  <div class="label" style="top:30.00%; left: 25%;">
-    <div class="tooltip">2: Tablero Secciónale Planta Alta.</div>
+  <div class="label" style="top:18.00%; left: 27%;">
+    <div class="tooltip">2: Fase R.</div>
   </div>
 
-  <div class="label" style="top:30%; left:40%;">
-    <div class="tooltip">3: Calentador agua cocina, lavaplatos, cocina.</div>
+  <div class="label" style="top:18%; left:31%;">
+    <div class="tooltip">3: Fase S.</div>
   </div>
 
-  <div class="label" style="top:30.00%; left:50%;">
-    <div class="tooltip">4: Iluminación Exterior.</div>
+  <div class="label" style="top:18.00%; left:35%;">
+    <div class="tooltip">4: Fase T.</div>
   </div>
 
-  <div class="label" style="top:30%; left:65%;">
+  <div class="label" style="top:18%; left:40%;">
     <div class="tooltip">5: Aire acondicionado.</div>
   </div>
 
-  <div class="label" style="top:30%; left:80%;">
+  <div class="label" style="top: 18%; left:46%;">
     <div class="tooltip">6: Tomas Planta baja y quincha.</div>
   </div>
 
-  <div class="label" style="top:55%; left:27%;">
+  <div class="label" style="top:18%; left:53%;">
     <div class="tooltip">7: Iluminación planta baja.</div>
   </div>
 
-  <div class="label" style="top:55%; left:40.00%;">
+  <div class="label" style="top:18%; left:60%;">
     <div class="tooltip">8: Timer Iluminación exterior.</div>
+  </div>
+
+   <div class="label" style="top:18%; left:68.00%;">
+    <div class="tooltip">9: Timer Iluminación exterior.</div>
+  </div>
+
+   <div class="label" style="top:18%; left:75.00%;">
+    <div class="tooltip">10: Timer Iluminación exterior.</div>
+  </div>
+
+   <div class="label" style="top:18%; left:82.00%;">
+    <div class="tooltip">11: Timer Iluminación exterior.</div>
+  </div>
+
+   <div class="label" style="top:32%; left:7.00%;">
+    <div class="tooltip">12: Timer Iluminación exterior.</div>
+  </div>
+
+   <div class="label" style="top:32%; left:14.00%;">
+    <div class="tooltip">13: Timer Iluminación exterior.</div>
+  </div>
+
+   <div class="label" style="top:32%; left:21.00%;">
+    <div class="tooltip">14: Timer Iluminación exterior.</div>
+  </div>
+
+   <div class="label" style="top:32%; left:28%;">
+    <div class="tooltip">15: Timer Iluminación exterior.</div>
+  </div>
+
+   <div class="label" style="top:32%; left:36.00%;">
+    <div class="tooltip">16: Timer Iluminación exterior.</div>
+  </div>
+
+   <div class="label" style="top:32%; left:42.00%;">
+    <div class="tooltip">17: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:32%; left:49.00%;">
+    <div class="tooltip">18: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:32%; left:56%;">
+    <div class="tooltip">19: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:32%; left:63.00%;">
+    <div class="tooltip">20: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:32%; left:70.00%;">
+    <div class="tooltip">21: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:32%; left:77.00%;">
+    <div class="tooltip">22: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:45%; left:10%;">
+    <div class="tooltip">23: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:45%; left:17.00%;">
+    <div class="tooltip">24: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:45%; left:24.00%;">
+    <div class="tooltip">25: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:45%; left:32.00%;">
+    <div class="tooltip">26: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:45%; left:39.00%;">
+    <div class="tooltip">27: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top: 45%; left:46.00%;">
+    <div class="tooltip">28: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:45%; left:53%;">
+    <div class="tooltip">29: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:45%; left:60%;">
+    <div class="tooltip">30: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:45%; left:66.00%;">
+    <div class="tooltip">31: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:45%; left:72.00%;">
+    <div class="tooltip">32: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:45%; left:79.00%;">
+    <div class="tooltip">33: Timer Iluminación exterior.</div>
+  </div>
+
+    <div class="label" style="top:58%; left:10%;">
+    <div class="tooltip">34: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:58%; left:17.00%;">
+    <div class="tooltip">35: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:58%; left:30.00%;">
+    <div class="tooltip">36: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:58%; left:36.00%;">
+    <div class="tooltip">37: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:58%; left:42.00%;">
+    <div class="tooltip">38: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top: 58%; left:50.00%;">
+    <div class="tooltip">39: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:58%; left:60%;">
+    <div class="tooltip">40: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:58%; left:69%;">
+    <div class="tooltip">41: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:58%; left:75.00%;">
+    <div class="tooltip">42: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:71%; left:10.00%;">
+    <div class="tooltip">43: Timer Iluminación exterior.</div>
+  </div>
+
+  <div class="label" style="top:71%; left:17.00%;">
+    <div class="tooltip">44: Timer Iluminación exterior.</div>
   </div>
 
 </div>

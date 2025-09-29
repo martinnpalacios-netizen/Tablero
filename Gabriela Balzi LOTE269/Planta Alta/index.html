@@ -9,14 +9,38 @@
   .container {position: relative; display: inline-block;}
   .container img {max-width: 100%; height: auto; display:block;}
   .tooltip {position:absolute; background:rgba(0,0,0,0.8); color:#fff; padding:6px 10px;
-            border-radius:6px; font-size:14px; visibility:hidden; opacity:0;
-            transition:opacity 0.3s, transform 0.2s; white-space:nowrap; z-index:10;}
+            border-radius:6px; font: size 20px; visibility:hidden; opacity:0;
+            transition:opacity 0.3s, transform:translateY(-5px); white-space:nowrap; z-index:10;}
   .label {position:absolute; cursor:pointer; width:30px; height:30px;}
   .label:hover .tooltip, .label:active .tooltip {visibility:visible; opacity:1; transform:translateY(-5px);}
+
+  /* Botón fijo */
+  .btn-fixed {
+    position: fixed;
+    top: 80px;      /* debajo del título */
+    left: 20px;     /* pegado a la izquierda */
+    padding:10px 20px;
+    font-size:16px;
+    background:#007BFF;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    z-index: 1000;  /* siempre encima de todo */
+  }
+  .btn-fixed:hover {
+    background:#0056b3;
+  }
 </style>
 </head>
 <body>
 <h2>Tablero Eléctrico Interactivo 2</h2>
+
+<!-- Botón fijo -->
+<a href="https://drive.google.com/file/d/ID_DEL_ARCHIVO/view?usp=sharing" target="_blank">
+  <button class="btn-fixed">Ver PLANOS</button>
+</a>
+
 <div class="container">
   <img src="tablero.png" alt="Tablero Eléctrico">
   <div class="label" style="top:30%; left:14%;">
@@ -50,7 +74,6 @@
   <div class="label" style="top:55%; left:40.00%;">
     <div class="tooltip">8: Timer Iluminación exterior.</div>
   </div>
-
 </div>
 </body>
 </html>
